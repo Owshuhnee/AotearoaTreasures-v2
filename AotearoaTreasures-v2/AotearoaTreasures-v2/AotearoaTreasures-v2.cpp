@@ -6,8 +6,93 @@
 using namespace std;
 
 /*-------------------------------------- CLASS PRODUCT START ------------------------------------*/
-// JOVE CODE IN HERE
-/*--------------------------------------- CLASS PRODUCT END -------------------------------------*/
+class product {
+	int id;
+	string name;
+	double price;
+	int stock;
+	string location;
+
+public: //constructor
+	product(int id, string name, double price, int stock, string location)
+		: id(id), name(name), price(price), stock(stock), location(location) {
+	}
+
+	//Getters
+	int getID() const { return id; }
+	string getName() const { return name; }
+	double getPrice() const { return price; }
+	int getStock() const { return stock; }
+	string getLocation() const { return location; }
+
+	//Setters
+	void setID(int newID) { id = newID; }
+	void setName(const string& newName) { name = newName; }
+	void setPrice(double newPrice) { price = newPrice; }
+	void setStock(int newStock) { stock = newStock; }
+	void setLocation(const string& newLocation) { location = newLocation; }
+
+	//Display Product Details
+	void display() const {
+		cout << "Location: " << location
+			<< ", ID: " << id
+			<< ", Name: " << name
+			<< ", Price: $" << price
+			<< ", Stock: " << stock << endl;
+	}
+}; /*------------------------------------ CLASS PRODUCT END -------------------------------------*/
+
+
+
+/*------------------------------------ PRODUCT FUNCTIONS START ----------------------------------*/
+class manageProduct {
+	vector<product> products; // Vector to store products
+
+public:
+	// Function to add a product
+	void addProduct() {
+		int id, stockLevel;
+		string name, location;
+		double price;
+		cout << "Enter Product ID: ";
+		cin >> id;
+		cin.ignore(); // Clear the newline character from the input buffer
+		cout << "Enter Product Name: ";
+		getline(cin, name);
+		cout << "Enter Product Price: $";
+		cin >> price;
+		cout << "Enter Stock Level: ";
+		cin >> stockLevel;
+		cin.ignore(); // Clear the newline character from the input buffer
+		cout << "Enter Location: ";
+		getline(cin, location);
+		addProduct(id, name, price, stockLevel, location);
+	}
+
+	// Function to add a product with validation
+	void addProduct(int id, const string& name, double price, int stockLevel, const string& location) {
+		for (const auto& p : products) {
+			if (p.getID() == id && p.getLocation() == location) {
+				cout << "Product with ID " << id << " already exists in " << location << "." << endl;
+				return;
+			}
+		}
+		products.emplace_back(id, name, price, stockLevel, location);
+		cout << "\nPRODUCT ADDED SUCCESSFULLY" << endl;
+	}
+	
+	//Function to display products
+	void displayProducts() const {
+		if (products.empty()) {
+			cout << "\nNo products available" << endl;
+			return;
+		} 
+		for (const auto& p : products) {
+			p.display();
+		}
+	}
+}; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
+
 
 
 /*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
@@ -32,7 +117,7 @@ void adminMenu() {
 
 void adminProductsMenu() {
 	cout << "\nMANAGE PRODUCTS" << endl;
-	cout << "1. View Products" << endl;
+	cout << "\n1. View Products" << endl;
 	cout << "2. Add a Product" << endl;
 	cout << "3. Update a Product" << endl;
 	cout << "4. Delete a Product" << endl;
@@ -112,18 +197,21 @@ void runadminEmployeesMenu() {
 }
 
 void runadminProductsMenu() {
+
+	manageProduct pm; // Create an instance of manageProducts
 	int prodChoice;
+
 	do {
 		adminProductsMenu();  // Show Menu
 		cin >> prodChoice; // Enter Choice
 		switch (prodChoice) {
 		case 1:
-			cout << "\nVIEW PRODUCTS: (not implemented)" << endl;
-			// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
+			cout << "\nPRODUCTS IN STORE: " << endl;
+			pm.displayProducts();// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
 			break;
 		case 2:
-			cout << "\nADD PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
+			cout << "\nADD PRODUCT: " << endl;
+			pm.addProduct(); // CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
 			break;
 		case 3:
 			cout << "\nUPDATE PRODUCT: (not implemented)" << endl;
