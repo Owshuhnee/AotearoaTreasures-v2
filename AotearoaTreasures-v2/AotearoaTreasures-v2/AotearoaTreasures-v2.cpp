@@ -1,0 +1,272 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <vector>	
+using namespace std;
+
+/*-------------------------------------- CLASS PRODUCT START ------------------------------------*/
+// JOVE CODE IN HERE
+/*--------------------------------------- CLASS PRODUCT END -------------------------------------*/
+
+
+/*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
+void mainMenu() {
+	cout << "\nWelcome to Aotearoa Treasures!" << endl;
+	cout << "Your one stop shop for NZ Souvenirs" << endl;
+	cout << "-----------------------------------" << endl;
+	cout << "\n1. Customer" << endl;
+	cout << "2. Administrator" << endl;
+	cout << "3. Exit" << endl;
+	cout << "Please select an option: ";
+}
+
+void adminMenu() {
+	cout << "\nADMINISTRATOR MENU" << endl;
+	cout << "\n1. Manage Employees" << endl;
+	cout << "2. Manage Products" << endl;
+	cout << "3. Manage Store Locations" << endl;
+	cout << "4. Back to previous menu" << endl;
+	cout << "Please select an option: ";
+}
+
+void adminProductsMenu() {
+	cout << "\nMANAGE PRODUCTS" << endl;
+	cout << "1. View Products" << endl;
+	cout << "2. Add a Product" << endl;
+	cout << "3. Update a Product" << endl;
+	cout << "4. Delete a Product" << endl;
+	cout << "5. Back to previous menu" << endl;
+	cout << "Please select an option: ";
+}
+
+void adminEmployeesMenu() {
+	cout << "\nMANAGE EMPLOYEES" << endl;
+	cout << "\n1. Add a new employee" << endl;
+	cout << "2. Update Employee Details" << endl;
+	cout << "3. Remove an Employee" << endl;
+	cout << "4. Manage Employee Roster" << endl;
+	cout << "5. Back to previous menu" << endl;
+	cout << "Please select an option: ";
+}
+
+void adminStoreLocationsMenu() {
+	cout << "\nMANAGE STORE LOCATIONS" << endl;
+	cout << "\n1. Add a new Store Location" << endl;
+	cout << "2. Update Store Location Details" << endl;
+	cout << "3. Remove a Store Location" << endl;
+	cout << "4. Back to previous menu" << endl;
+	cout << "Please select an option: ";
+}
+
+void storelocationsMenu() {
+	cout << "\nSTORE LOCATIONS" << endl;
+	cout << "\n1. Auckland" << endl;
+	cout << "2. Wellington" << endl;
+	cout << "3. Christchurch" << endl;
+	cout << "4. All Branches" << endl;
+	cout << "5. Back to previous menu" << endl;
+	cout << "Please select an option: ";
+}
+
+void customerMenu() {
+	cout << "\nCUSTOMER MENU" << endl;
+	cout << "1. Buy Item" << endl;
+	cout << "2. Back to Store selection" << endl;
+	cout << "Please select an option: ";
+}
+/*------------------------------------ MENU FUNCTIONS END ---------------------------------------*/
+
+
+/*------------------------------------- ADMIN SUB-MENU START ------------------------------------*/
+void runadminEmployeesMenu() {
+	int empChoice;
+	do {
+		adminEmployeesMenu();  // Show Menu
+		cin >> empChoice; // Enter Choice
+
+		switch (empChoice) {
+		case 1:
+			cout << "\nADD EMPLOYEE: (not implemented)" << endl;
+			//CALL FUNCTION TO ADD EMPLOYEE HERE c/o ROSS
+			break;
+		case 2:
+			cout << "\nUPDATE EMPLOYEE DETAILS: (not implemented)" << endl;
+			// CALL FUNCTION TO UPDATE EMPLOYEE DETAILS HERE - c/o ROSS
+			break;
+		case 3:
+			cout << "\nREMOVE EMPLOYEE: (not implemented)" << endl;
+			// CALL FUNCTION TO REMOVE EMPLOYEE HERE - c/o ROSS
+			break;
+		case 4:
+			cout << "\nMANAGE EMPLOYEE ROSTER: (not implemented)" << endl;
+			// CALL FUNCTION TO MANAGE EMPLOYEE ROSTER HERE - c/o ROSS
+			break;
+		case 5:
+			// BACK TO PREVIOUS MENU
+			break;
+		default:
+			cout << "Invalid choice. Try again.\n";
+		}
+	} while (empChoice != 5);
+}
+
+void runadminProductsMenu() {
+	int prodChoice;
+	do {
+		adminProductsMenu();  // Show Menu
+		cin >> prodChoice; // Enter Choice
+		switch (prodChoice) {
+		case 1:
+			cout << "\nVIEW PRODUCTS: (not implemented)" << endl;
+			// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
+			break;
+		case 2:
+			cout << "\nADD PRODUCT: (not implemented)" << endl;
+			// CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
+			break;
+		case 3:
+			cout << "\nUPDATE PRODUCT: (not implemented)" << endl;
+			// CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
+			break;
+		case 4:
+			cout << "\nDELETE PRODUCT: (not implemented)" << endl;
+			// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
+			break;
+		case 5:
+			// BACK TO PREVIOUS MENU
+			break;
+		default:
+			cout << "Invalid choice. Try again.\n";
+		}
+	} while (prodChoice != 5);
+}
+
+void runadminStoreLocationsMenu() {
+	int storeChoice;
+	do {
+		adminStoreLocationsMenu();  // Show Menu
+		cin >> storeChoice; // Enter Choice
+
+		switch (storeChoice) {
+		case 1:
+			cout << "\nADD STORE LOCATION: (not implemented)" << endl;
+			// CALL FUNCTION TO ADD STORE LOCATION HERE
+			break;
+		case 2:
+			cout << "\nUPDATE STORE LOCATION: (not implemented)" << endl;
+			// CALL FUNCTION TO UPDATE STORE LOCATION HERE
+			break;
+		case 3:
+			cout << "\nREMOVE STORE LOCATION: (not implemented)" << endl;
+			// CALL FUNCTION TO REMOVE STORE LOCATION HERE
+			break;
+		case 4:
+			// BACK TO PREVIOUS MENU
+			break;
+		default:
+			cout << "Invalid choice. Try again.\n";
+		}
+	} while (storeChoice != 4);
+}
+/*------------------------------------- ADMIN SUB-MENU END --------------------------------------*/
+
+
+
+/*-------------------------------------- MAIN FUNCTION START ------------------------------------*/
+int main() {
+	int choice;
+
+	/*------------------ CUSTOMER FUNCTIONS HERE ------------------*/
+
+	do {
+		mainMenu(); // Show Main Menu
+		cin >> choice;
+
+
+		if (choice == 1) {
+			int storeLocationsChoice;
+			do {
+				storelocationsMenu(); //Show Menu
+				cin >> storeLocationsChoice; // Customer enters choice
+
+				switch (storeLocationsChoice) {
+				case 1:
+					// CALL FUNCTION TO VIEW PRODUCTS IN AUCKLAND STORE HERE c/o PORKY
+					cout << "\nYou have selected Auckland Store" << endl;
+					cout << "This function is not yet implemented." << endl;
+					break;
+
+				case 2:
+					// CALL FUNCTION TO VIEW PRODUCTS IN WELLINGTON STORE HERE c/o PORKY
+					cout << "\nYou have selected Wellington Store" << endl;
+					cout << "This function is not yet implemented." << endl;
+					break;
+
+				case 3:
+					// CALL FUNCTION TO VIEW PRODUCTS IN CHRISTCHURCH STORE HERE c/o PORKY
+					cout << "\nYou have selected Christchurch Store" << endl;
+					cout << "This function is not yet implemented." << endl;
+					break;
+
+				case 4:
+					// CALL FUNCTION TO VIEW PRODUCTS IN CHRISTCHURCH STORE HERE c/o PORKY
+					cout << "\nYou have selected All Branches" << endl;
+					cout << "This function is not yet implemented." << endl;
+					break;
+
+				case 5: //BACK TO PREVIOUS MENU
+					break;
+
+				default:
+					cout << "Invalid input. Please try again" << endl;
+					break;
+				}
+			} while (storeLocationsChoice != 5);
+		}
+
+		/*------------------ ADMIN FUNCTIONS HERE ------------------*/
+
+		else if (choice == 2) {
+			int adminChoice;
+
+			do {
+				adminMenu(); // Show Menu
+				cin >> adminChoice;
+
+				switch (adminChoice) {
+				case 1:
+					runadminEmployeesMenu(); // Show Sub-Menu
+					break;
+
+				case 2:
+					runadminProductsMenu(); // Show Sub-Menu
+					break;
+
+				case 3:
+					runadminStoreLocationsMenu(); // Show Sub-Menu
+					break;
+
+				case 4:// BACK TO PREVIOUS MENU
+					break;
+
+				default:
+					cout << "Invalid input. Please try again" << endl;
+					break;
+				}
+			} while (adminChoice != 4);
+		}
+
+		else if (choice == 3) {
+			cout << "Exiting program." << endl;
+			cout << "Thank you for using Aotearoa Treasures" << endl;
+			return 0;
+		}
+		else {
+			cout << "Invalid Input. Please try again" << endl;
+			mainMenu();
+		}
+	} while (choice != 3);
+	return 0;
+}
+/*------------------------------------ MAIN FUNCTION END -----------------------------------*/
