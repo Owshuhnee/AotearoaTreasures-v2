@@ -116,6 +116,17 @@ public:
 		cout << "Product with ID " << id << " not found in " << location << "." << endl;
 	}
 
+	void deleteProduct(int id, const string& location) {
+		for (auto it = products.begin(); it != products.end(); ++it) {
+			if (it->getID() == id && it->getLocation() == location) {
+				products.erase(it);
+				cout << "Product with ID " << id << " in " << location << " deleted successfully." << endl;
+				return;
+			}
+		}
+		cout << "Product with ID " << id << " not found in " << location << "." << endl;
+	}
+
 }; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
 
 
@@ -244,25 +255,36 @@ void runadminProductsMenu() {
 			break;
 
 		case 3: { // CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
-			cout << "\nUPDATE PRODUCT: " << endl;
 			int id;
-			string location;
-
+			string location; 
+			
+			cout << "\nUPDATE PRODUCT: " << endl;
 			cout << "Enter Product ID to update: ";
 			cin >> id;
 			cin.ignore();
 
-			cout << "Enter Store Location of the product: ";
+			cout << "Enter the Store Location: ";
 			getline(cin, location);
 
 			pm.updateProduct(id, location);
 			break;
 			}
 
-		case 4:
-			cout << "\nDELETE PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
+		case 4: {// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
+			int id;
+			string location;
+
+			cout << "\nDELETE PRODUCT: " << endl;
+			cout << "Enter Product ID to delete :";
+			cin >> id;
+			cin.ignore();
+
+			cout << "Enter the Store location: ";
+			getline(cin, location);
+
+			pm.deleteProduct(id, location);
 			break;
+			}
 
 		case 5:
 			// BACK TO PREVIOUS MENU
@@ -364,7 +386,7 @@ int main() {
 
 			do {
 				adminMenu(); // Show Menu
-				cin >> adminChoice;
+				cin >> adminChoice; //Admin enters choice
 
 				switch (adminChoice) {
 				case 1:
