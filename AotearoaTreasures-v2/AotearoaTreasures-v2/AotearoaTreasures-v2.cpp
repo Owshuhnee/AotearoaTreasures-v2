@@ -61,7 +61,7 @@ public:
 		getline(cin, name);
 		cout << "Enter Product Price: $";
 		cin >> price;
-		cout << "Enter Stock Level: ";
+		cout << "Enter Stock: ";
 		cin >> stockLevel;
 		cin.ignore(); // Clear the newline character from the input buffer
 		cout << "Enter Location: ";
@@ -81,7 +81,7 @@ public:
 		cout << "\nPRODUCT ADDED SUCCESSFULLY" << endl;
 	}
 	
-	//Function to display products
+	// Function to display products
 	void displayProducts() const {
 		if (products.empty()) {
 			cout << "\nNo products available" << endl;
@@ -91,6 +91,31 @@ public:
 			p.display();
 		}
 	}
+
+	// Function to update a product details
+	void updateProduct(int id, const string& location) {
+		for (auto& p : products) {
+			if (p.getID() == id && p.getLocation() == location) {
+				string newName;
+				double newPrice;
+				int newStock;
+				cout << "Updating product ID " << id << " in " << location << endl;
+				cout << "Enter new name: ";
+				getline(cin, newName);
+				p.setName(newName);
+				cout << "Enter new price: ";
+				cin >> newPrice;
+				p.setPrice(newPrice);
+				cout << "Enter new stock: ";
+				cin >> newStock;
+				p.setStock(newStock);
+				cout << "Product updated successfully." << endl;
+				return;
+			}
+		}
+		cout << "Product with ID " << id << " not found in " << location << "." << endl;
+	}
+
 }; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
 
 
@@ -205,25 +230,44 @@ void runadminProductsMenu() {
 		adminProductsMenu();  // Show Menu
 		cin >> prodChoice; // Enter Choice
 		switch (prodChoice) {
+
+
 		case 1:
+			// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
 			cout << "\nPRODUCTS IN STORE: " << endl;
-			pm.displayProducts();// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
+			pm.displayProducts();
 			break;
-		case 2:
+
+		case 2: // CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
 			cout << "\nADD PRODUCT: " << endl;
-			pm.addProduct(); // CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
+			pm.addProduct(); 
 			break;
-		case 3:
-			cout << "\nUPDATE PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
+
+		case 3: { // CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
+			cout << "\nUPDATE PRODUCT: " << endl;
+			int id;
+			string location;
+
+			cout << "Enter Product ID to update: ";
+			cin >> id;
+			cin.ignore();
+
+			cout << "Enter Store Location of the product: ";
+			getline(cin, location);
+
+			pm.updateProduct(id, location);
 			break;
+			}
+
 		case 4:
 			cout << "\nDELETE PRODUCT: (not implemented)" << endl;
 			// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
 			break;
+
 		case 5:
 			// BACK TO PREVIOUS MENU
 			break;
+
 		default:
 			cout << "Invalid choice. Try again.\n";
 		}
