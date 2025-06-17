@@ -6,8 +6,129 @@
 using namespace std;
 
 /*-------------------------------------- CLASS PRODUCT START ------------------------------------*/
-// JOVE CODE IN HERE
-/*--------------------------------------- CLASS PRODUCT END -------------------------------------*/
+class product {
+	int id;
+	string name;
+	double price;
+	int stock;
+	string location;
+
+public: //constructor
+	product(int id, string name, double price, int stock, string location)
+		: id(id), name(name), price(price), stock(stock), location(location) {
+	}
+
+	//Getters
+	int getID() const { return id; }
+	string getName() const { return name; }
+	double getPrice() const { return price; }
+	int getStock() const { return stock; }
+	string getLocation() const { return location; }
+
+	//Setters
+	void setID(int newID) { id = newID; }
+	void setName(const string& newName) { name = newName; }
+	void setPrice(double newPrice) { price = newPrice; }
+	void setStock(int newStock) { stock = newStock; }
+	void setLocation(const string& newLocation) { location = newLocation; }
+
+	//Display Product Details
+	void display() const {
+		cout << "Location: " << location
+			<< ", ID: " << id
+			<< ", Name: " << name
+			<< ", Price: $" << price
+			<< ", Stock: " << stock << endl;
+	}
+}; /*------------------------------------ CLASS PRODUCT END -------------------------------------*/
+
+
+
+/*------------------------------------ PRODUCT FUNCTIONS START ----------------------------------*/
+class manageProduct {
+	vector<product> products; // Vector to store products
+
+public:
+	// Function to add a product
+	void addProduct() {
+		int id, stockLevel;
+		string name, location;
+		double price;
+		cout << "Enter Product ID: ";
+		cin >> id;
+		cin.ignore(); // Clear the newline character from the input buffer
+		cout << "Enter Product Name: ";
+		getline(cin, name);
+		cout << "Enter Product Price: $";
+		cin >> price;
+		cout << "Enter Stock: ";
+		cin >> stockLevel;
+		cin.ignore(); // Clear the newline character from the input buffer
+		cout << "Enter Location: ";
+		getline(cin, location);
+		addProduct(id, name, price, stockLevel, location);
+	}
+
+	// Function to add a product with validation
+	void addProduct(int id, const string& name, double price, int stockLevel, const string& location) {
+		for (const auto& p : products) {
+			if (p.getID() == id && p.getLocation() == location) {
+				cout << "Product with ID " << id << " already exists in " << location << "." << endl;
+				return;
+			}
+		}
+		products.emplace_back(id, name, price, stockLevel, location);
+		cout << "\nPRODUCT ADDED SUCCESSFULLY" << endl;
+	}
+	
+	// Function to display products
+	void displayProducts() const {
+		if (products.empty()) {
+			cout << "\nNo products available" << endl;
+			return;
+		} 
+		for (const auto& p : products) {
+			p.display();
+		}
+	}
+
+	// Function to update a product details
+	void updateProduct(int id, const string& location) {
+		for (auto& p : products) {
+			if (p.getID() == id && p.getLocation() == location) {
+				string newName;
+				double newPrice;
+				int newStock;
+				cout << "Updating product ID " << id << " in " << location << endl;
+				cout << "Enter new name: ";
+				getline(cin, newName);
+				p.setName(newName);
+				cout << "Enter new price: ";
+				cin >> newPrice;
+				p.setPrice(newPrice);
+				cout << "Enter new stock: ";
+				cin >> newStock;
+				p.setStock(newStock);
+				cout << "Product updated successfully." << endl;
+				return;
+			}
+		}
+		cout << "Product with ID " << id << " not found in " << location << "." << endl;
+	}
+
+	void deleteProduct(int id, const string& location) {
+		for (auto it = products.begin(); it != products.end(); ++it) {
+			if (it->getID() == id && it->getLocation() == location) {
+				products.erase(it);
+				cout << "Product with ID " << id << " in " << location << " deleted successfully." << endl;
+				return;
+			}
+		}
+		cout << "Product with ID " << id << " not found in " << location << "." << endl;
+	}
+
+}; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
+
 
 
 /*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
@@ -32,7 +153,7 @@ void adminMenu() {
 
 void adminProductsMenu() {
 	cout << "\nMANAGE PRODUCTS" << endl;
-	cout << "1. View Products" << endl;
+	cout << "\n1. View Products" << endl;
 	cout << "2. Add a Product" << endl;
 	cout << "3. Update a Product" << endl;
 	cout << "4. Delete a Product" << endl;
@@ -112,30 +233,63 @@ void runadminEmployeesMenu() {
 }
 
 void runadminProductsMenu() {
+
+	manageProduct pm; // Create an instance of manageProducts
 	int prodChoice;
+
 	do {
 		adminProductsMenu();  // Show Menu
 		cin >> prodChoice; // Enter Choice
 		switch (prodChoice) {
+
+
 		case 1:
-			cout << "\nVIEW PRODUCTS: (not implemented)" << endl;
 			// CALL FUNCTION TO VIEW PRODUCTS HERE c/o JOVE
+			cout << "\nPRODUCTS IN STORE: " << endl;
+			pm.displayProducts();
 			break;
-		case 2:
-			cout << "\nADD PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
+
+		case 2: // CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
+			cout << "\nADD PRODUCT: " << endl;
+			pm.addProduct(); 
 			break;
-		case 3:
-			cout << "\nUPDATE PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
+
+		case 3: { // CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
+			int id;
+			string location; 
+			
+			cout << "\nUPDATE PRODUCT: " << endl;
+			cout << "Enter Product ID to update: ";
+			cin >> id;
+			cin.ignore();
+
+			cout << "Enter the Store Location: ";
+			getline(cin, location);
+
+			pm.updateProduct(id, location);
 			break;
-		case 4:
-			cout << "\nDELETE PRODUCT: (not implemented)" << endl;
-			// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
+			}
+
+		case 4: {// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
+			int id;
+			string location;
+
+			cout << "\nDELETE PRODUCT: " << endl;
+			cout << "Enter Product ID to delete :";
+			cin >> id;
+			cin.ignore();
+
+			cout << "Enter the Store location: ";
+			getline(cin, location);
+
+			pm.deleteProduct(id, location);
 			break;
+			}
+
 		case 5:
 			// BACK TO PREVIOUS MENU
 			break;
+
 		default:
 			cout << "Invalid choice. Try again.\n";
 		}
@@ -232,7 +386,7 @@ int main() {
 
 			do {
 				adminMenu(); // Show Menu
-				cin >> adminChoice;
+				cin >> adminChoice; //Admin enters choice
 
 				switch (adminChoice) {
 				case 1:
