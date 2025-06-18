@@ -152,6 +152,7 @@ void displayProductsForBranch(const string& branch) {
 	pm.displayProductsByLocation(branch);
 }
 
+// Customer function to display all products
 void displayAllProductsForCustomer() {
 	cout << "\nALL PRODUCTS IN ALL BRANCHES:" << endl;
 	pm.displayProducts();
