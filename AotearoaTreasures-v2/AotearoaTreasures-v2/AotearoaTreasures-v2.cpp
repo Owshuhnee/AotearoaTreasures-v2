@@ -141,6 +141,9 @@ public:
 		cout << "Product with ID " << id << " not found in " << location << "." << endl;
 	}
 
+	// Public accessor for products (for customer buy function)
+	vector<product>& getProducts() { return products; }
+
 }; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
 
 /*------------------- GLOBAL PRODUCT MANAGER (MOVED HERE) -------------------*/
@@ -156,6 +159,44 @@ void displayProductsForBranch(const string& branch) {
 void displayAllProductsForCustomer() {
 	cout << "\nALL PRODUCTS IN ALL BRANCHES:" << endl;
 	pm.displayProducts();
+}
+
+// Customer function to buy available products
+void buyProductAsCustomer() {
+	int id, quantity;
+	string location;
+	cout << "\n--- BUY PRODUCT ---" << endl;
+	pm.displayProducts();
+
+	cout << "Enter Product ID to buy: ";
+	cin >> id;
+	cin.ignore();
+	cout << "Enter Store Location: ";
+	getline(cin, location);
+
+	bool found = false;
+	for (auto& p : pm.getProducts()) {
+		if (p.getID() == id && p.getLocation() == location) {
+			found = true;
+			cout << "Enter quantity to buy: ";
+			cin >> quantity;
+			if (quantity <= 0) {
+				cout << "Invalid quantity." << endl;
+				return;
+			}
+			if (quantity > p.getStock()) {
+				cout << "Not enough stock available." << endl;
+				return;
+			}
+			p.setStock(p.getStock() - quantity);
+			cout << "Purchase successful! " << quantity << " x " << p.getName()
+				<< " bought for $" << p.getPrice() * quantity << endl;
+			return;
+		}
+	}
+	if (!found) {
+		cout << "Product not found in the specified location." << endl;
+	}
 }
 
 /*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
@@ -373,8 +414,19 @@ int main() {
 
 				switch (storeLocationsChoice) {
 				case 1:
-					cout << "\nYou have selected Auckland Store" << endl;
-					displayProductsForBranch("Auckland");
+					customerMenu();
+					int customerChoice;
+					cin >> customerChoice;
+					switch (customerChoice) {
+					case 1:
+						buyProductAsCustomer();
+						break;
+					case 2:
+						break;
+					default:
+						cout << "Invalid input. Please try again" << endl;
+						break;
+					}
 					break;
 
 				case 2:
