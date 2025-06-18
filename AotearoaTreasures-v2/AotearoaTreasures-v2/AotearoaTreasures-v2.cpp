@@ -80,15 +80,29 @@ public:
 		products.emplace_back(id, name, price, stockLevel, location);
 		cout << "\nPRODUCT ADDED SUCCESSFULLY" << endl;
 	}
-	
-	// Function to display products
+
+	// Function to display all products
 	void displayProducts() const {
 		if (products.empty()) {
 			cout << "\nNo products available" << endl;
 			return;
-		} 
+		}
 		for (const auto& p : products) {
 			p.display();
+		}
+	}
+
+	// Function to display products for a specific branch/location
+	void displayProductsByLocation(const string& location) const {
+		bool found = false;
+		for (const auto& p : products) {
+			if (p.getLocation() == location) {
+				p.display();
+				found = true;
+			}
+		}
+		if (!found) {
+			cout << "\nNo products available in " << location << endl;
 		}
 	}
 
@@ -129,7 +143,14 @@ public:
 
 }; /*----------------------------------- PRODUCT FUNCTIONS END ----------------------------------*/
 
+/*------------------- GLOBAL PRODUCT MANAGER (MOVED HERE) -------------------*/
+manageProduct pm; // Global instance for product management
 
+/*------------------- CUSTOMER DISPLAY FUNCTION (NEW) -------------------*/
+void displayProductsForBranch(const string& branch) {
+	cout << "\nPRODUCTS IN " << branch << " STORE:" << endl;
+	pm.displayProductsByLocation(branch);
+}
 
 /*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
 void mainMenu() {
@@ -234,7 +255,7 @@ void runadminEmployeesMenu() {
 
 void runadminProductsMenu() {
 
-	manageProduct pm; // Create an instance of manageProducts
+	//manageProduct pm; // REMOVED: Now using global pm
 	int prodChoice;
 
 	do {
@@ -251,13 +272,13 @@ void runadminProductsMenu() {
 
 		case 2: // CALL FUNCTION TO ADD PRODUCT HERE c/o JOVE
 			cout << "\nADD PRODUCT: " << endl;
-			pm.addProduct(); 
+			pm.addProduct();
 			break;
 
 		case 3: { // CALL FUNCTION TO UPDATE PRODUCT HERE c/o JOVE
 			int id;
-			string location; 
-			
+			string location;
+
 			cout << "\nUPDATE PRODUCT: " << endl;
 			cout << "Enter Product ID to update: ";
 			cin >> id;
@@ -268,7 +289,7 @@ void runadminProductsMenu() {
 
 			pm.updateProduct(id, location);
 			break;
-			}
+		}
 
 		case 4: {// CALL FUNCTION TO DELETE PRODUCT HERE c/o JOVE
 			int id;
@@ -284,7 +305,7 @@ void runadminProductsMenu() {
 
 			pm.deleteProduct(id, location);
 			break;
-			}
+		}
 
 		case 5:
 			// BACK TO PREVIOUS MENU
@@ -346,27 +367,23 @@ int main() {
 
 				switch (storeLocationsChoice) {
 				case 1:
-					// CALL FUNCTION TO VIEW PRODUCTS IN AUCKLAND STORE HERE c/o PORKY
 					cout << "\nYou have selected Auckland Store" << endl;
-					cout << "This function is not yet implemented." << endl;
+					displayProductsForBranch("Auckland");
 					break;
 
 				case 2:
-					// CALL FUNCTION TO VIEW PRODUCTS IN WELLINGTON STORE HERE c/o PORKY
 					cout << "\nYou have selected Wellington Store" << endl;
-					cout << "This function is not yet implemented." << endl;
+					displayProductsForBranch("Wellington");
 					break;
 
 				case 3:
-					// CALL FUNCTION TO VIEW PRODUCTS IN CHRISTCHURCH STORE HERE c/o PORKY
 					cout << "\nYou have selected Christchurch Store" << endl;
-					cout << "This function is not yet implemented." << endl;
+					displayProductsForBranch("Christchurch");
 					break;
 
 				case 4:
-					// CALL FUNCTION TO VIEW PRODUCTS IN CHRISTCHURCH STORE HERE c/o PORKY
 					cout << "\nYou have selected All Branches" << endl;
-					cout << "This function is not yet implemented." << endl;
+					pm.displayProducts();
 					break;
 
 				case 5: //BACK TO PREVIOUS MENU
