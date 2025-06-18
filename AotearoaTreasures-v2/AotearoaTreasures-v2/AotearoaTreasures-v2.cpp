@@ -146,10 +146,15 @@ public:
 /*------------------- GLOBAL PRODUCT MANAGER (MOVED HERE) -------------------*/
 manageProduct pm; // Global instance for product management
 
-/*------------------- CUSTOMER DISPLAY FUNCTION (NEW) -------------------*/
+/*------------------- CUSTOMER DISPLAY FUNCTIONS (NEW) -------------------*/
 void displayProductsForBranch(const string& branch) {
 	cout << "\nPRODUCTS IN " << branch << " STORE:" << endl;
 	pm.displayProductsByLocation(branch);
+}
+
+void displayAllProductsForCustomer() {
+	cout << "\nALL PRODUCTS IN ALL BRANCHES:" << endl;
+	pm.displayProducts();
 }
 
 /*-------------------------------------- MENU FUNCTIONS START -----------------------------------*/
@@ -383,7 +388,7 @@ int main() {
 
 				case 4:
 					cout << "\nYou have selected All Branches" << endl;
-					pm.displayProducts();
+					displayAllProductsForCustomer();
 					break;
 
 				case 5: //BACK TO PREVIOUS MENU
