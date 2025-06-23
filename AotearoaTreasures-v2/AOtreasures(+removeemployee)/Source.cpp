@@ -109,7 +109,6 @@ void editEmployeeShift() {
 	employees[index].showRoster();
 }
 
-
 // checks if ID already exists
 bool existingEmployeeId(int employeeId) {
 	for (int i = 0; i < employees.size(); i++) {
@@ -128,6 +127,7 @@ void addNewEmployee() {
 
 	int id, storeId;
 	string name, storeName;
+
 
 	do {
 		cout << "Please enter the new employee ID: ";
@@ -158,6 +158,28 @@ void addNewEmployee() {
 		newEmployee.showRoster();
 
 	}
+
+
+	cout << "Please enter the new employee ID: ";
+	cin >> id;
+
+	cout << "Please enter the new employee name: ";
+	cin.ignore();
+	getline(cin, name);
+
+	cout << "Please enter the store ID: ";
+	cin >> storeId;
+
+	cout << "Please enter the store name: ";
+	cin.ignore();
+	getline(cin, storeName);
+
+	Employee newEmployee(id, name, storeId, storeName);
+	employees.push_back(newEmployee);
+
+	cout << "Thank you. New employee has now been added\n" << endl;
+	newEmployee.showRoster();
+}
 
 
 // Remove an employee from the system
@@ -227,6 +249,7 @@ void removeEmployee() {
 		cout << "\nRemoval cancelled. Employee has NOT been removed." << endl;
 	}
 }
+
 
 
 void updateEmployee() {
@@ -320,6 +343,7 @@ void updateEmployee() {
 
 	}
 }
+
 
 
 int main() {
