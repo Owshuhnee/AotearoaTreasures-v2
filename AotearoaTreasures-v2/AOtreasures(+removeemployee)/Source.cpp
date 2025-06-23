@@ -109,12 +109,56 @@ void editEmployeeShift() {
 	employees[index].showRoster();
 }
 
+// checks if ID already exists
+bool existingEmployeeId(int employeeId) {
+	for (int i = 0; i < employees.size(); i++) {
+		if (employees[i].id == employeeId) {
+			return true; // existing ID
+		}
+	}
+	return false; // unique ID
+}
+
+
+
 // Add a new employee to the system
 void addNewEmployee() {
 	cout << "\nAdd New Employee" << endl;
 
 	int id, storeId;
 	string name, storeName;
+
+
+	do {
+		cout << "Please enter the new employee ID: ";
+		cin >> id;
+
+		if (existingEmployeeId(id)) {
+			cout << "Error: That ID already exists" << endl;
+			cout << "Please try again" << endl;
+		}
+
+	} while (existingEmployeeId(id));
+
+		cout << "Please enter the new employee name: ";
+		cin.ignore();
+		getline(cin, name);
+
+		cout << "Please enter the store ID: ";
+		cin >> storeId;
+
+		cout << "Please enter the store name: ";
+		cin.ignore();
+		getline(cin, storeName);
+
+		Employee newEmployee(id, name, storeId, storeName);
+		employees.push_back(newEmployee);
+
+		cout << "Thank you. New employee has now been added\n" << endl;
+		newEmployee.showRoster();
+
+	}
+
 
 	cout << "Please enter the new employee ID: ";
 	cin >> id;
@@ -136,6 +180,7 @@ void addNewEmployee() {
 	cout << "Thank you. New employee has now been added\n" << endl;
 	newEmployee.showRoster();
 }
+
 
 // Remove an employee from the system
 void removeEmployee() {
@@ -204,6 +249,102 @@ void removeEmployee() {
 		cout << "\nRemoval cancelled. Employee has NOT been removed." << endl;
 	}
 }
+
+
+
+void updateEmployee() {
+
+	int employeeId;
+	int foundIndex = -1;
+	int updateOption;
+
+	cout << "Please enter an Employee ID to update: ";
+	cin >> employeeId;
+
+	for (int i = 0; i < employees.size(); i++) {
+		if (employees[i].id == employeeId) {
+			foundIndex = i;
+			break;
+		}
+	}
+
+	if (foundIndex == -1) {
+		cout << "Could not find an employee with matching ID" << endl;
+		return;
+	}
+
+	cout << "Employee's current details:" << endl;
+	cout << "Name: " << employees[foundIndex].name << endl;
+	cout << "Store ID: " << employees[foundIndex].id << endl;
+	cout << "Store: " << employees[foundIndex].storeName << endl;
+
+	cout << "Select what to update: " << endl;
+	cout << "(1) Name" << endl;
+	cout << "(2) Store ID" << endl;
+	cout << "(3) Store Name" << endl;
+	cout << "(4) Cancel" << endl;
+
+	cin >> updateOption;
+
+	switch(updateOption) {
+
+	case 1: {
+
+		string newName;
+		cin.ignore();
+		getline(cin, newName);
+		employees[foundIndex].name = newName;
+
+		cout << "Name updated" << endl;
+		cout << "New name: " << employees[foundIndex].name << endl;
+		break;
+	}
+
+	case 2: {
+
+		int newId;
+		do {
+			cout << "Enter new Employee ID: ";
+			cin >> newId;
+			if (newId == employees[foundIndex].id) {
+				break;
+			}
+			else if (existingEmployeeId(newId)) {
+				cout << "That ID already exists. Please choose another ID" << endl;
+			}
+			else {
+				break;
+			}
+		} while (true);
+
+		employees[foundIndex].id = newId;
+
+		cout << "Employee ID updated" << endl;
+		cout << "New Employee ID: " << employees[foundIndex].id << endl;
+		break;
+
+	}
+
+	case 3: {
+
+		string newStoreName;
+		cin.ignore();
+		getline(cin, newStoreName);
+		employees[foundIndex].storeName = newStoreName;
+
+		cout << "Store has been updated successfully" << endl;
+		cout << "New Store: " << employees[foundIndex].storeName << endl;
+		break;
+	}
+
+	default:
+		cout << "Cancelling updating" << endl;
+		break;
+
+	}
+}
+
+
 
 int main() {
 	Store s1;

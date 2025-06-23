@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\rossh\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1B49A8C3-31C0-42CB-8CEA-FAC4BA56FDC9}|AotearoaTreasures-v2\\AotearoaTreasures-v2.vcxproj|C:\\Users\\rossh\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{1B49A8C3-31C0-42CB-8CEA-FAC4BA56FDC9}|AotearoaTreasures-v2\\AotearoaTreasures-v2.vcxproj|solutionrelative:AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AotearoaTreasures-v2.cpp",
+              "DocumentMoniker": "C:\\Users\\rossh\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp",
+              "RelativeDocumentMoniker": "AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp",
+              "ToolTip": "C:\\Users\\rossh\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp",
+              "RelativeToolTip": "AotearoaTreasures-v2\\AotearoaTreasures-v2.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-22T04:22:04.463Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
